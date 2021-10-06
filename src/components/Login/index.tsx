@@ -1,18 +1,17 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import AuthService from '../../services/AuthService';
+import ApiService from '../../services/ApiService';
 import loginStyles from './loginStyles'
 import { Text, View, Button, TextInput } from 'react-native';
 import { useInstance } from 'react-ioc';
-import { observer } from 'mobx-react';
 
-const Login: FunctionComponent = () => {
-  const authService = useInstance(AuthService)
+const Login: FunctionComponent = (): JSX.Element => {
+  const apiService = useInstance(ApiService)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = () => {
-    authService.auth(email, password);
+    apiService.auth(email, password);
   }
 
   return (
@@ -51,4 +50,4 @@ const Login: FunctionComponent = () => {
   )
 }
 
-export default observer(Login);
+export default Login;
