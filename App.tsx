@@ -3,18 +3,12 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import Login from './src/components/Login';
 import { provider, useInstance } from 'react-ioc';
-import AuthService from './src/services/AuthService';
+import ApiService from './src/services/ApiService';
 import Main from './src/components/Main';
 import { observer } from 'mobx-react';
 
 const App: FunctionComponent = (): JSX.Element => {
-  const { isUser } = useInstance(AuthService)
-
-  const [isUserSwitcher, setIsUserSwitcher] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsUserSwitcher(isUser)
-  }, [isUserSwitcher, setIsUserSwitcher, isUser]);
+  const { isUser } = useInstance(ApiService)
 
   const rootStyles = StyleSheet.create({
     container: {
@@ -27,11 +21,11 @@ const App: FunctionComponent = (): JSX.Element => {
 
   return (
     <SafeAreaView style={rootStyles.container}>
-      {!isUserSwitcher && <Login />}
-      {isUserSwitcher && <Main />}
+      {!isUser && <Login />}
+      {isUser && <Main />}
       <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
 
-export default observer(provider(AuthService)(App));
+export default provider(ApiService)(observer(App));
