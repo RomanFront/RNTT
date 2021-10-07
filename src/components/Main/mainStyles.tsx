@@ -9,8 +9,8 @@ const loginStyles = StyleSheet.create({
     borderStyle: 'solid',
     backgroundColor: '#edf4ff',
   },
-  input: {
-    width: '20%',
+  picker: {
+    width: '30%',
     height: 30,
     padding: 3,
     borderRadius: 5,

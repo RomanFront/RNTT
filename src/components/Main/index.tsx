@@ -4,6 +4,7 @@ import { Button, Text, TextInput, View } from 'react-native';
 import { useInstance } from 'react-ioc';
 import ApiService from '../../services/ApiService';
 import { observer } from 'mobx-react';
+import { Picker } from '@react-native-picker/picker';
 
 const Main: FunctionComponent = (): JSX.Element => {
   const apiService = useInstance(ApiService);
@@ -18,6 +19,7 @@ const Main: FunctionComponent = (): JSX.Element => {
   }
 
   useEffect(() => {
+    setPage(1)
     setPagesCount(Math.ceil(tagsCount/tagsPerPage))
   }, [tagsPerPage]);
 
@@ -34,12 +36,16 @@ const Main: FunctionComponent = (): JSX.Element => {
       })}
       <View style={{marginTop: 20}}>
         <Text>Количество тегов на странице: </Text>
-        <TextInput
-          style={mainStyles.input}
-          keyboardType='numeric'
-          onChangeText={(number) => {setTagsPerPage(Number(number) || 0)}}
-          value={String(tagsPerPage)}
-        />
+        <Picker 
+          style={mainStyles.picker}
+          selectedValue={tagsPerPage}
+          onValueChange={setTagsPerPage}
+        >
+          <Picker.Item label="3" value={3} />
+          <Picker.Item label="5" value={5} />
+          <Picker.Item label="10" value={10} />
+          <Picker.Item label="20" value={20} />
+        </Picker>
       </View>
       <View style={mainStyles.paginatorContainer}>
         <View style={mainStyles.paginator}>
